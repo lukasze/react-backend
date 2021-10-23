@@ -3,6 +3,7 @@ package com.example.reactbackend.controller;
 import com.example.reactbackend.model.Person;
 import com.example.reactbackend.service.PersonService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
+@CrossOrigin
 public class PersonController {
 
     public static final String ID_NOT_FOUND_ERROR_MSG = "Person Not Found, id: ";
