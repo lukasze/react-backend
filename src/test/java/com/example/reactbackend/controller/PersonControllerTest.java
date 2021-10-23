@@ -13,10 +13,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static com.example.reactbackend.controller.PersonController.ID_NOT_FOUND_ERROR_MSG;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -68,5 +69,38 @@ class PersonControllerTest {
                 () -> assertEquals(firstName, savedPerson.getFirstName()),
                 () -> assertEquals(lastName, savedPerson.getLastName())
         );
+    }
+
+    @Test
+    @DirtiesContext
+    void givenDBInitilizedWith3Records_whenDELETEPeopleWithExistingID_shouldReturn200() throws Exception {
+
+        var existingId= 1;
+
+        final var mvcResult = mockMvc
+                .perform(delete("/people/" + existingId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DirtiesContext
+    void givenDBInitilizedWith3Records_whenDELETEPeopleWithNonExistingID_shouldReturnErrorMSG() throws Exception {
+
+        var nonExistingID= 10;
+
+        final var mvcResult = mockMvc
+                .perform(delete("/people/" + nonExistingID)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        var expectedErrorMessage = ID_NOT_FOUND_ERROR_MSG + nonExistingID;
+
+        assertEquals(expectedErrorMessage,  mvcResult.getResponse().getErrorMessage());
     }
 }
