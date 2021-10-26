@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("lower")
 class PersonControllerTest {
 
     @Autowired
@@ -83,6 +85,30 @@ class PersonControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DirtiesContext
+    void givenDBInitilizedWith3Records_whenGETPeopleWithExistingID_shouldReturn200AndPersonLowerCase() throws Exception {
+
+        var existingId= 1;
+
+        final var mvcResult = mockMvc
+                .perform(get("/people/" + existingId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        Person returnedPerson = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Person.class);
+
+        assertAll(
+                () -> assertEquals("yuval", returnedPerson.getFirstName()),
+                () -> assertEquals("harari", returnedPerson.getLastName())
+        );
+
+
     }
 
     @Test
