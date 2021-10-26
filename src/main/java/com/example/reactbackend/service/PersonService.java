@@ -26,7 +26,22 @@ public class PersonService {
     }
 
     public Person find(Long id) {
-        return personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No person with id" + id));
+        return personRepository
+                .findById(id)
+                .map(person -> {
+                    if(id == 1) {
+                        person.setFirstName(person.getFirstName().toUpperCase());
+                        person.setLastName(person.getLastName().toUpperCase());
+                        return person;
+                    } else if (id == 2) {
+                        person.setFirstName(person.getFirstName().toLowerCase());
+                        person.setLastName(person.getLastName().toLowerCase());
+                        return person;
+                    } else {
+                        return person;
+                    }
+                })
+                .orElseThrow(() -> new NoSuchElementException("No person with id" + id));
     }
 
     public void delete(Person person) {
