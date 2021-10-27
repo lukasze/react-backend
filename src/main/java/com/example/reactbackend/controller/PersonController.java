@@ -17,6 +17,8 @@ public class PersonController {
 
     private PersonServiceI personService;
 
+    public PersonController(){}
+
     public PersonController(PersonServiceI personService) {
         this.personService = personService;
     }
