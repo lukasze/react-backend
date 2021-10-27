@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Profile("lower")
-@Service
 public class PersonServiceLowerCase implements PersonServiceI {
     private PersonRepository personRepository;
 
