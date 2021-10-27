@@ -1,4 +1,4 @@
-package com.example.reactbackend;
+package com.example.reactbackend.main;
 
 import com.example.reactbackend.model.Person;
 import com.example.reactbackend.repository.PersonRepository;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Profile;
 
 import java.util.List;
