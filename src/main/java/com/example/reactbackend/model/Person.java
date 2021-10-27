@@ -3,7 +3,6 @@ package com.example.reactbackend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "people")
 public class Person {
 
     @Id
