@@ -24,7 +24,6 @@ public class ReactBackendApplication {
     PersonServiceI personService() {
         return new PersonServiceI() {
 
-            @Autowired
             private PersonRepository personRepository;
 
             public List<Person> findAll() {
