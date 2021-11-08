@@ -4,6 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "people")
+@NamedQuery(
+        name = "Person.findByFirstNameAndLastNameNamedQuery",
+        query = "SELECT p FROM Person p WHERE p.firstName = :name AND p.lastName = :surname"
+)
+@NamedNativeQuery(
+        name = "Person.findByFirstNameAndLastNameNamedNativeQuery",
+        query = "SELECT id, first_name, last_name FROM people p WHERE p.first_name = :firstName AND p.last_name = :lastName",
+        resultClass = Person.class
+)
 public class Person {
 
     @Id

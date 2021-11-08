@@ -1,39 +1,45 @@
 package com.example.reactbackend.repository;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DataJpaTest
 class PersonRepositoryTest {
+
+    @Autowired
+    private PersonRepository personRepository;
 
     @Test
     void shouldFindYuval_usingCustomRepoMethod() {
-        fail();
+        assertEquals(1, personRepository.findByFirstNameAndLastName("Yuval","Harari").size());
     }
 
     @Test
     void shouldFindYuval_usingQuery(){
-        fail();
+        assertEquals(1, personRepository.findByFirstNameAndLastNameUsingQuery("Yuval","Harari").size());
     }
 
     @Test
     void shouldFindYuval_usingNativeQuery(){
-        fail();
+        assertEquals(1, personRepository.findByFirstNameAndLastNameUsingNativeQuery("Yuval","Harari").size());
     }
 
     @Test
     void shouldFindYuval_usingNamedQuery(){
-        fail();
+        assertEquals(1, personRepository.findByFirstNameAndLastNameNamedQuery("Yuval","Harari").size());
     }
 
     @Test
     void shouldFindYuval_usingNamedNativeQuery(){
-        fail();
+        assertNotNull(personRepository.findByFirstNameAndLastNameNamedNativeQuery("Yuval","Harari"));
     }
 
     @Test
     void shouldFindYuval_usingCustomImplementation(){
-        fail();
+        assertEquals(1, personRepository.findByFirstNameAndLastNameCustom("Yuval","Harari").size());
     }
 
 
