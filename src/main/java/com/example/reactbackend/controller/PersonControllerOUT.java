@@ -36,4 +36,11 @@ public class PersonControllerOUT {
                 .header(customHeader, customHeaderValue)
                 .body(aPerson);
     }
+
+    @RequestMapping("/person-as-html")
+    ModelAndView returnHTML(ModelAndView modelAndView){
+        modelAndView.addObject(aPerson);
+        modelAndView.setViewName("person");
+        return modelAndView;
+    }
 }
