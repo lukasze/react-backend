@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -28,12 +29,12 @@ public class PersonController {
     }
 
     @PostMapping("/people")
-    Person save(@RequestBody Person person) {
+    Person save(@Valid @RequestBody Person person) {
         return personService.save(person);
     }
 
     @PutMapping("/people")
-    Person update(@RequestBody Person person) {
+    Person update(@Valid @RequestBody Person person) {
         Person personToUpdate;
         try {
             personToUpdate = personService.find(person.getId());

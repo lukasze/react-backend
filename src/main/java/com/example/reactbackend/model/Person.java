@@ -1,6 +1,7 @@
 package com.example.reactbackend.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "people")
@@ -10,7 +11,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "First name is mandatory")
     private String firstName;
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
 
     public Person() {
