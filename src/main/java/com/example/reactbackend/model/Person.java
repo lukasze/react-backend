@@ -1,5 +1,7 @@
 package com.example.reactbackend.model;
 
+import com.example.reactbackend.controller.validators.IsNotSauron;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -11,6 +13,7 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @IsNotSauron
     @NotBlank(message = "First name is mandatory")
     private String firstName;
     @NotBlank(message = "Last name is mandatory")
