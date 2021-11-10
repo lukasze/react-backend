@@ -32,4 +32,8 @@ public class PersonService {
     public void delete(Person person) {
         personRepository.delete(person);
     }
+
+    public void throwException() {
+        throw new RuntimeException();
+    }
 }

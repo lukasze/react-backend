@@ -46,7 +46,7 @@ public class PersonController {
 
         return personService.save(personToUpdate);
     }
-
+    // the exception handled inside the method
     @DeleteMapping("/people/{id}")
     void delete(@PathVariable Long id) {
         Person personToDelete;
@@ -57,5 +57,11 @@ public class PersonController {
                     HttpStatus.NOT_FOUND, ID_NOT_FOUND_ERROR_MSG + id, nse);
         }
         personService.delete(personToDelete);
+    }
+
+
+    @GetMapping("/exception-in-service")
+    void endpointWithException() {
+        personService.throwException();
     }
 }
